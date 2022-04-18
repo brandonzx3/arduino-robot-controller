@@ -28,19 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.EnableButton = new System.Windows.Forms.Button();
             this.DisableButton = new System.Windows.Forms.Button();
             this.EnabledText = new System.Windows.Forms.Label();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(871, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
             // 
             // EnableButton
             // 
@@ -69,18 +61,28 @@
             this.EnabledText.Name = "EnabledText";
             this.EnabledText.Size = new System.Drawing.Size(38, 15);
             this.EnabledText.TabIndex = 3;
+            this.EnabledText.Tag = "";
             this.EnabledText.Text = "label1";
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(12, 28);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.checkedListBox1.Size = new System.Drawing.Size(204, 364);
+            this.checkedListBox1.TabIndex = 4;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(871, 501);
+            this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.EnabledText);
             this.Controls.Add(this.DisableButton);
             this.Controls.Add(this.EnableButton);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -90,10 +92,9 @@
         }
 
         #endregion
-
-        private MenuStrip menuStrip1;
         private Button EnableButton;
         private Button DisableButton;
         private Label EnabledText;
+        private CheckedListBox checkedListBox1;
     }
 }

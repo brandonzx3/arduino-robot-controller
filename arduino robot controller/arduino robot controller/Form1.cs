@@ -10,9 +10,10 @@ namespace arduino_robot_controller
 
         public Form1()
         {
+            controller.Start();
             InitializeComponent();
             System.Windows.Forms.Timer tmr = new System.Windows.Forms.Timer();
-            tmr.Interval = 50;   // milliseconds
+            tmr.Interval = 10;   // milliseconds
             tmr.Tick += Tmr_Tick;  // set handler
             tmr.Start();
             EnabledText.Text = "Disabled";
@@ -20,13 +21,23 @@ namespace arduino_robot_controller
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            controller.Start();
+            buttons = controller.GetButtons();
+            axies = controller.GetAxies();
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                checkedListBox1.Items.Add(new CheckBox());
+                checkedListBox1.Height = (checkedListBox1.Items.Count + 1) * checkedListBox1.ItemHeight;
+            }
         }
 
         private void Tmr_Tick(object sender, EventArgs e)  //run this logic each timer tick
         {
             buttons = controller.GetButtons();
             axies = controller.GetAxies();
+            for(int i = 0; i < buttons.Length; i++)
+            {
+                checkedListBox1.SetItemChecked(i, buttons[i]);
+            }
         }
 
         private void SendData()
