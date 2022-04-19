@@ -32,6 +32,7 @@
             this.DisableButton = new System.Windows.Forms.Button();
             this.EnabledText = new System.Windows.Forms.Label();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.controllerConnected = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // EnableButton
@@ -68,17 +69,27 @@
             // 
             this.checkedListBox1.BackColor = System.Drawing.SystemColors.Window;
             this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(12, 28);
+            this.checkedListBox1.Location = new System.Drawing.Point(12, 39);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.checkedListBox1.Size = new System.Drawing.Size(204, 364);
+            this.checkedListBox1.Size = new System.Drawing.Size(19, 364);
             this.checkedListBox1.TabIndex = 4;
+            // 
+            // controllerConnected
+            // 
+            this.controllerConnected.AutoSize = true;
+            this.controllerConnected.Location = new System.Drawing.Point(43, 16);
+            this.controllerConnected.Name = "controllerConnected";
+            this.controllerConnected.Size = new System.Drawing.Size(38, 15);
+            this.controllerConnected.TabIndex = 5;
+            this.controllerConnected.Text = "label1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(871, 501);
+            this.Controls.Add(this.controllerConnected);
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.EnabledText);
             this.Controls.Add(this.DisableButton);
@@ -96,5 +107,6 @@
         private Button DisableButton;
         private Label EnabledText;
         private CheckedListBox checkedListBox1;
+        private Label controllerConnected;
     }
 }

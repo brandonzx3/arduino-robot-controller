@@ -12,8 +12,10 @@ namespace arduino_robot_controller
     {
         private Controller controller;
         private System.Threading.Timer timer;
-        private int[] axies = new int[6];
+        private short[] axies = new short[6];
         private bool[] buttons = new bool[14];
+        public bool isConnected;
+        public short amongus;
 
         public ReadController()
         {
@@ -29,33 +31,35 @@ namespace arduino_robot_controller
         private void Update()
         {
             controller.GetState(out var state);
+            isConnected = controller.IsConnected;
+            amongus = state.Gamepad.LeftThumbX;
 
             //add axies to list
-            axies[0] = (int)state.Gamepad.LeftThumbX;
-            axies[1] = (int)state.Gamepad.LeftThumbY;
-            axies[2] = (int)state.Gamepad.RightThumbX;
-            axies[3] = (int)state.Gamepad.RightThumbY;
-            axies[4] = (int)state.Gamepad.LeftTrigger;
-            axies[5] = (int)state.Gamepad.RightTrigger;
-
+            axies[0] = state.Gamepad.LeftThumbX;
+            axies[1] = state.Gamepad.LeftThumbY;
+            axies[2] = state.Gamepad.RightThumbX;
+            axies[3] = state.Gamepad.RightThumbY;
+            axies[4] = state.Gamepad.LeftTrigger;
+            axies[5] = state.Gamepad.RightTrigger;
+            
             //add buttons to list
-           buttons[0] = (bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.A);
-            buttons[1] = (bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.B);
-            buttons[2] = (bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.X);
-            buttons[3] = (bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.Y);
-            buttons[4] = (bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.LeftShoulder);
-            buttons[5] =(bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.RightShoulder);
-            buttons[6] =(bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.LeftThumb);
-            buttons[7] =(bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.RightThumb);
-            buttons[8] =(bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.Start);
-            buttons[9] =(bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.Back);
-            buttons[10] = (bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.DPadUp);
-            buttons[11] =(bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.DPadLeft);
-            buttons[12] =(bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.DPadDown);
-            buttons[13] = (bool)state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.DPadRight);
+           buttons[0] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.A);
+            buttons[1] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.B);
+            buttons[2] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.X);
+            buttons[3] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.Y);
+            buttons[4] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.LeftShoulder);
+            buttons[5] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.RightShoulder);
+            buttons[6] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.LeftThumb);
+            buttons[7] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.RightThumb);
+            buttons[8] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.Start);
+            buttons[9] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.Back);
+            buttons[10] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.DPadUp);
+            buttons[11] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.DPadLeft);
+            buttons[12] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.DPadDown);
+            buttons[13] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.DPadRight);
         }
 
-        public int[] GetAxies() { return axies; }
+        public short[] GetAxies() { return axies; }
         public bool[] GetButtons() { return buttons; }
     }
 }
