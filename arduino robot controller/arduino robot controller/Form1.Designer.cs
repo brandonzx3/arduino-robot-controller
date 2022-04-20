@@ -39,7 +39,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comPorts = new System.Windows.Forms.ComboBox();
+            this.SerialSettings = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.SerialSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // EnableButton
@@ -129,18 +131,29 @@
             // 
             this.comPorts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comPorts.FormattingEnabled = true;
-            this.comPorts.Location = new System.Drawing.Point(202, 347);
+            this.comPorts.Location = new System.Drawing.Point(28, 48);
             this.comPorts.Name = "comPorts";
             this.comPorts.Size = new System.Drawing.Size(121, 23);
             this.comPorts.TabIndex = 9;
             this.comPorts.SelectedIndexChanged += new System.EventHandler(this.comPorts_SelectedIndexChanged);
+            // 
+            // SerialSettings
+            // 
+            this.SerialSettings.Controls.Add(this.comPorts);
+            this.SerialSettings.Location = new System.Drawing.Point(163, 267);
+            this.SerialSettings.Name = "SerialSettings";
+            this.SerialSettings.Size = new System.Drawing.Size(181, 152);
+            this.SerialSettings.TabIndex = 10;
+            this.SerialSettings.TabStop = false;
+            this.SerialSettings.Text = "Serial Settings";
+            this.SerialSettings.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(356, 501);
-            this.Controls.Add(this.comPorts);
+            this.Controls.Add(this.SerialSettings);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.connectionMode);
@@ -155,6 +168,7 @@
             this.Text = "Arduino Driver Station";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            this.SerialSettings.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -171,5 +185,6 @@
         private Label label1;
         private Label label2;
         private ComboBox comPorts;
+        private GroupBox SerialSettings;
     }
 }
