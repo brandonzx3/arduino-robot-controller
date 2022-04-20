@@ -131,7 +131,7 @@
             // 
             this.comPorts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comPorts.FormattingEnabled = true;
-            this.comPorts.Location = new System.Drawing.Point(28, 48);
+            this.comPorts.Location = new System.Drawing.Point(28, 35);
             this.comPorts.Name = "comPorts";
             this.comPorts.Size = new System.Drawing.Size(121, 23);
             this.comPorts.TabIndex = 9;
@@ -162,6 +162,7 @@
             this.Controls.Add(this.EnabledText);
             this.Controls.Add(this.DisableButton);
             this.Controls.Add(this.EnableButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

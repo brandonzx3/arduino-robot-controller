@@ -114,12 +114,25 @@ namespace arduino_robot_controller
                         enabled = false;
                         break;
                     }
+
                 case "Serial":
                     {
                         if(ports.Length > 0 && comPorts.SelectedIndex > 0)
                         {
                             enabled = true;
                         } else enabled = false;
+                        break;
+                    }
+
+                case "Wifi":
+                    {
+                        enabled = true;
+                        break;
+                    }
+
+                case "Bluetooth":
+                    {
+                        enabled = true;
                         break;
                     }
             }
@@ -161,7 +174,10 @@ namespace arduino_robot_controller
         //change com port name
         private void comPorts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            serialData.SetPort(comPorts.SelectedItem.ToString(), 9600);
+            if(comPorts.SelectedItem != null)
+            {
+                serialData.SetPort(comPorts.SelectedItem.ToString(), 9200);
+            }
             enabled = false;
         }
     }

@@ -11,6 +11,7 @@ namespace arduino_robot_controller
     {
         private SerialPort port;
         private String[] ports = SerialPort.GetPortNames();
+
         public SerialData()
         {
             if(ports.Length > 0 && ports[0] != null)
@@ -18,6 +19,7 @@ namespace arduino_robot_controller
                 port = new SerialPort(ports[0], 9600);
             }
         }
+
         public void SendData(short[] axies, bool[] buttons, bool enabled)
         {
             string data = enabled ? "enabled," : "disabled,";
@@ -30,10 +32,15 @@ namespace arduino_robot_controller
                 port.Close();
             }
         }
+
         public void SetPort(string name, int baudrate)
         {
-            port = new SerialPort(name, baudrate);
+            if(name != null)
+            {
+                port = new SerialPort(name, baudrate);
+            }
         }
+
         public string[] GetPorts() { return ports; }
     }
 }
