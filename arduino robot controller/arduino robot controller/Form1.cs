@@ -6,17 +6,20 @@ namespace arduino_robot_controller
     public partial class Form1 : Form
     {
         private ReadController controller = new ReadController();
+        private SerialData serialData = new SerialData();
         private bool enabled = false;
         bool[] buttons;
         short[] axies;
+        String[] ports;
+        String[] oldPortList;
 
         public Form1()
         {
             controller.Start();
             InitializeComponent();
             System.Windows.Forms.Timer tmr = new System.Windows.Forms.Timer();
-            tmr.Interval = 1;   // milliseconds
-            tmr.Tick += Tmr_Tick;  // set handler
+            tmr.Interval = 1;
+            tmr.Tick += Update;
             tmr.Start();
             EnabledText.Text = "Disabled";
         }
@@ -30,14 +33,40 @@ namespace arduino_robot_controller
                 buttonDisplay.Items.Add(new CheckBox().Text = i.ToString());
             }
             buttonDisplay.Height = (buttonDisplay.Items.Count + 1) * buttonDisplay.ItemHeight;
+
+            ports = serialData.GetPorts();
+            foreach (String port in ports)
+            {
+                comPorts.Items.Add(port);
+            }
+            oldPortList = ports;
         }
 
-        private void Tmr_Tick(object sender, EventArgs e)
+        private void Update(object sender, EventArgs e)
         {
             buttons = controller.GetButtons();
             axies = controller.GetAxies();
+
             Console.WriteLine(axies[0]);
 
+            /////////////////
+            //Serial Logic//
+            ///////////////
+            
+            ports = serialData.GetPorts();
+            if (oldPortList != ports)
+            {
+                //new port added
+                foreach (String port in ports)
+                {
+                    comPorts.Items.Add(port);
+                }
+                oldPortList = ports;
+            }
+
+            /////////////////////
+            //Controller Logic//
+            ///////////////////
             if(controller.isConnected())
             {
                 controllerConnected.Text = "Controller Connected";
@@ -60,17 +89,18 @@ namespace arduino_robot_controller
                 EnabledText.Text = "Disabled";
             }
 
-            if (enabled) { SendData(); }
+
+
+            SendData();
         }
 
         private void SendData()
         {
-            switch(connectionMode.SelectedIndex)
+            switch(connectionMode.SelectedItem.ToString())
             {
-                case 1:
+                case "Serial":
                     {
-                        //serial
-
+                        serialData.SendData(axies, buttons, enabled);
                         break;
                     }
             }
@@ -95,14 +125,24 @@ namespace arduino_robot_controller
         private void connectionMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             enabled = false;
-            switch (connectionMode.SelectedIndex)
+            switch (connectionMode.SelectedItem.ToString())
             {
                 default:
                     {
-                        //no state selected
+                        break;
+                    }
+                case "Serial":
+                    {
                         break;
                     }
             }
+        }
+
+        //change com port name
+        private void comPorts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            serialData.SetPort(comPorts.SelectedItem.ToString(), 9600);
+            Console.WriteLine(comPorts.SelectedItem.ToString());
         }
     }
 }

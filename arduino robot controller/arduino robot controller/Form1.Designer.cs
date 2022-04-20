@@ -38,6 +38,7 @@
             this.connectionMode = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.comPorts = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,7 +77,7 @@
             // 
             this.buttonDisplay.BackColor = System.Drawing.SystemColors.Window;
             this.buttonDisplay.FormattingEnabled = true;
-            this.buttonDisplay.Location = new System.Drawing.Point(53, 71);
+            this.buttonDisplay.Location = new System.Drawing.Point(12, 64);
             this.buttonDisplay.Name = "buttonDisplay";
             this.buttonDisplay.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.buttonDisplay.Size = new System.Drawing.Size(48, 274);
@@ -118,17 +119,28 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(53, 53);
+            this.label2.Location = new System.Drawing.Point(12, 46);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 15);
             this.label2.TabIndex = 8;
             this.label2.Text = "Buttons";
+            // 
+            // comPorts
+            // 
+            this.comPorts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comPorts.FormattingEnabled = true;
+            this.comPorts.Location = new System.Drawing.Point(202, 347);
+            this.comPorts.Name = "comPorts";
+            this.comPorts.Size = new System.Drawing.Size(121, 23);
+            this.comPorts.TabIndex = 9;
+            this.comPorts.SelectedIndexChanged += new System.EventHandler(this.comPorts_SelectedIndexChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(356, 501);
+            this.Controls.Add(this.comPorts);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.connectionMode);
@@ -158,5 +170,6 @@
         private ComboBox connectionMode;
         private Label label1;
         private Label label2;
+        private ComboBox comPorts;
     }
 }
