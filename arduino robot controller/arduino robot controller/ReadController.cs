@@ -14,8 +14,6 @@ namespace arduino_robot_controller
         private System.Threading.Timer timer;
         private short[] axies = new short[6];
         private bool[] buttons = new bool[14];
-        public bool isConnected;
-        public short amongus;
 
         public ReadController()
         {
@@ -31,8 +29,6 @@ namespace arduino_robot_controller
         private void Update()
         {
             controller.GetState(out var state);
-            isConnected = controller.IsConnected;
-            amongus = state.Gamepad.LeftThumbX;
 
             //add axies to list
             axies[0] = state.Gamepad.LeftThumbX;
@@ -61,5 +57,6 @@ namespace arduino_robot_controller
 
         public short[] GetAxies() { return axies; }
         public bool[] GetButtons() { return buttons; }
+        public bool isConnected() { return controller.IsConnected; }
     }
 }
