@@ -18,7 +18,7 @@ namespace arduino_robot_controller
             controller.Start();
             InitializeComponent();
             System.Windows.Forms.Timer tmr = new System.Windows.Forms.Timer();
-            tmr.Interval = 1;
+            tmr.Interval = 50;
             tmr.Tick += Update;
             tmr.Start();
             EnabledText.Text = "Disabled";
@@ -34,39 +34,51 @@ namespace arduino_robot_controller
             }
             buttonDisplay.Height = (buttonDisplay.Items.Count + 1) * buttonDisplay.ItemHeight;
 
+
+            //Serial Port
             ports = serialData.GetPorts();
             foreach (String port in ports)
             {
                 comPorts.Items.Add(port);
             }
-            oldPortList = ports;
+            
+            oldPortList = new string[ports.Length];
+            for (int i = 0; i < ports.Length; i++)
+            {
+                oldPortList[i] = ports[i];
+                Console.WriteLine(oldPortList[i] + " " + ports[i]);
+            }
         }
-
+        int updateIteration = 0;
         private void Update(object sender, EventArgs e)
         {
             buttons = controller.GetButtons();
             axies = controller.GetAxies();
 
-            Console.WriteLine(axies[0]);
-
-            /////////////////
-            //Serial Logic//
-            ///////////////
-            
+              ////////////////
+             //Serial Logic//
+            ////////////////
             ports = serialData.GetPorts();
-            if (oldPortList != ports)
+            if(ports.Length != oldPortList.Length)
             {
-                //new port added
+                serialData.SetPort(ports[0], 28800);
+                Console.WriteLine("new Com port");
+                comPorts.Items.Clear();
                 foreach (String port in ports)
                 {
                     comPorts.Items.Add(port);
                 }
-                oldPortList = ports;
+
+                oldPortList = new string[ports.Length];
+                for (int x = 0; x < ports.Length; x++)
+                {
+                    oldPortList[x] = ports[x];
+                }
             }
 
-            /////////////////////
-            //Controller Logic//
-            ///////////////////
+              ////////////////////
+             //Controller Logic//
+            ////////////////////
             if(controller.isConnected())
             {
                 controllerConnected.Text = "Controller Connected";
@@ -90,13 +102,16 @@ namespace arduino_robot_controller
             }
 
 
-
-            SendData();
+            if(updateIteration % 3 == 0)
+            {
+                SendData();
+            }
+            updateIteration++;
         }
 
         private void SendData()
         {
-            switch(connectionMode.SelectedItem.ToString())
+            switch(connectionMode.SelectedItem)
             {
                 case "Serial":
                     {
@@ -108,12 +123,34 @@ namespace arduino_robot_controller
 
         private void EnableButton_Click(object sender, EventArgs e)
         {
-            if(connectionMode.SelectedIndex >= 0)
+            switch(connectionMode.SelectedItem)
             {
-                enabled = true;
-            } else
-            {
-                enabled = false;
+                default:
+                    {
+                        enabled = false;
+                        break;
+                    }
+
+                case "Serial":
+                    {
+                        if(ports.Length > 0 && comPorts.SelectedIndex >= 0)
+                        {
+                            enabled = true;
+                        } else enabled = false;
+                        break;
+                    }
+
+                case "Wifi":
+                    {
+                        enabled = true;
+                        break;
+                    }
+
+                case "Bluetooth":
+                    {
+                        enabled = true;
+                        break;
+                    }
             }
         }
 
@@ -129,10 +166,22 @@ namespace arduino_robot_controller
             {
                 default:
                     {
+                        SerialSettings.Visible = false;
                         break;
                     }
                 case "Serial":
                     {
+                        SerialSettings.Visible = true;
+                        break;
+                    }
+                case "Wifi":
+                    {
+                        SerialSettings.Visible = false;
+                        break;
+                    }
+                case "Bluetooth":
+                    {
+                        SerialSettings.Visible = false;
                         break;
                     }
             }
@@ -141,8 +190,11 @@ namespace arduino_robot_controller
         //change com port name
         private void comPorts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            serialData.SetPort(comPorts.SelectedItem.ToString(), 9600);
-            Console.WriteLine(comPorts.SelectedItem.ToString());
+            if(comPorts.SelectedItem != null)
+            {
+                serialData.SetPort(comPorts.SelectedItem.ToString(), 28800);
+            }
+            enabled = false;
         }
     }
 }

@@ -39,7 +39,7 @@ namespace arduino_robot_controller
             axies[5] = state.Gamepad.RightTrigger;
             
             //add buttons to list
-           buttons[0] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.A);
+            buttons[0] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.A);
             buttons[1] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.B);
             buttons[2] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.X);
             buttons[3] = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.Y);
